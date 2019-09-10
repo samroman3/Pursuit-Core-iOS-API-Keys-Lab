@@ -55,6 +55,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "lyricsSegue" {
+            let destination = segue.destination as! LyricsDetailViewController
+            guard let selectedIndexPath = searchTableView.indexPathForSelectedRow else {
+                fatalError("No row selected")
+            }
+             let selectedCell = searchResults[selectedIndexPath.row]
+            destination.endPoint = selectedCell.track
+        }
+    }
+    
+    
+    
     
     
     

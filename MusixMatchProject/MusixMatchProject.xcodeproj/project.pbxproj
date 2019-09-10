@@ -14,10 +14,12 @@
 		3A95F4D52327E12900D0EDE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A95F4D32327E12900D0EDE1 /* LaunchScreen.storyboard */; };
 		3A95F4E02327E12900D0EDE1 /* MusixMatchProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95F4DF2327E12900D0EDE1 /* MusixMatchProjectTests.swift */; };
 		3A95F4EB2327E12900D0EDE1 /* MusixMatchProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95F4EA2327E12900D0EDE1 /* MusixMatchProjectUITests.swift */; };
-		3A95F53B232820FB00D0EDE1 /* Lyrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95F53A232820FB00D0EDE1 /* Lyrics.swift */; };
+		3A95F53B232820FB00D0EDE1 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95F53A232820FB00D0EDE1 /* Track.swift */; };
 		3A95F53D2328259A00D0EDE1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95F53C2328259A00D0EDE1 /* NetworkManager.swift */; };
 		3A95F53F232825A200D0EDE1 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95F53E232825A200D0EDE1 /* ImageManager.swift */; };
 		3A95F541232825AA00D0EDE1 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95F540232825A900D0EDE1 /* AppError.swift */; };
+		3A95F5432328399D00D0EDE1 /* LyricsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95F5422328399D00D0EDE1 /* LyricsDetailViewController.swift */; };
+		3A95F54523283BE900D0EDE1 /* Lyrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95F54423283BE900D0EDE1 /* Lyrics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,10 +53,12 @@
 		3A95F4E62327E12900D0EDE1 /* MusixMatchProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusixMatchProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A95F4EA2327E12900D0EDE1 /* MusixMatchProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusixMatchProjectUITests.swift; sourceTree = "<group>"; };
 		3A95F4EC2327E12900D0EDE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3A95F53A232820FB00D0EDE1 /* Lyrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lyrics.swift; sourceTree = "<group>"; };
+		3A95F53A232820FB00D0EDE1 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		3A95F53C2328259A00D0EDE1 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		3A95F53E232825A200D0EDE1 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		3A95F540232825A900D0EDE1 /* AppError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		3A95F5422328399D00D0EDE1 /* LyricsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsDetailViewController.swift; sourceTree = "<group>"; };
+		3A95F54423283BE900D0EDE1 /* Lyrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lyrics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,8 +113,10 @@
 				3A95F540232825A900D0EDE1 /* AppError.swift */,
 				3A95F53C2328259A00D0EDE1 /* NetworkManager.swift */,
 				3A95F53E232825A200D0EDE1 /* ImageManager.swift */,
-				3A95F53A232820FB00D0EDE1 /* Lyrics.swift */,
+				3A95F53A232820FB00D0EDE1 /* Track.swift */,
+				3A95F54423283BE900D0EDE1 /* Lyrics.swift */,
 				3A95F4CC2327E12800D0EDE1 /* ViewController.swift */,
+				3A95F5422328399D00D0EDE1 /* LyricsDetailViewController.swift */,
 				3A95F4CE2327E12800D0EDE1 /* Main.storyboard */,
 				3A95F4D12327E12900D0EDE1 /* Assets.xcassets */,
 				3A95F4D32327E12900D0EDE1 /* LaunchScreen.storyboard */,
@@ -271,7 +277,9 @@
 				3A95F53D2328259A00D0EDE1 /* NetworkManager.swift in Sources */,
 				3A95F53F232825A200D0EDE1 /* ImageManager.swift in Sources */,
 				3A95F541232825AA00D0EDE1 /* AppError.swift in Sources */,
-				3A95F53B232820FB00D0EDE1 /* Lyrics.swift in Sources */,
+				3A95F5432328399D00D0EDE1 /* LyricsDetailViewController.swift in Sources */,
+				3A95F53B232820FB00D0EDE1 /* Track.swift in Sources */,
+				3A95F54523283BE900D0EDE1 /* Lyrics.swift in Sources */,
 				3A95F4CD2327E12800D0EDE1 /* ViewController.swift in Sources */,
 				3A95F4CB2327E12800D0EDE1 /* AppDelegate.swift in Sources */,
 			);
