@@ -10,37 +10,44 @@ import Foundation
 
 
 struct TrackWrapper: Codable {
-    let message: Body
+    let message: Message
     
-    static func loadShows(search: String?, completionHandler: @escaping (Result<[Track],AppError>) -> () ) {
+    static func loadSongs(search: String?, completionHandler: @escaping (Result<[TrackList],AppError>) -> () ) {
         
         var url = ""
         if let searchWord = search?.lowercased() {
-            url = "http://api.musixmatch.com/ws/1.1/track.search?apikey=50aa0a8f45e0ba5082bb0226cf8d5f6e&q_artist=\(searchWord)"
+            url = "http://api.musixmatch.com/ws/1.1/track.search?page_size=100&page=1&s_track_rating=desc&q_artist=\(searchWord)&apikey=50aa0a8f45e0ba5082bb0226cf8d5f6e"
         }
         NetworkManager.shared.fetchData(urlString: url) { (result) in
             switch result {
             case .failure(let error):
                 completionHandler(.failure(error))
+                print(error)
             case .success(let data):
                 do {
-                    let shows = try JSONDecoder().decode([Track].self, from: data)
-                    completionHandler(.success(shows))
+                    let decode = try JSONDecoder().decode(TrackWrapper.self, from: data)
+                    completionHandler(.success((decode.message.body.track_list)))
                 } catch {
-                    completionHandler(.failure(.badJSONError))                }
+                    completionHandler(.failure(.badJSONError))
+                }
             }
         }
     }
 }
 
-
+struct Message: Codable{
+    let body: Body
+}
 struct Body: Codable {
-    let tracklist: [Track]
+    let track_list: [TrackList]
+}
+struct TrackList: Codable{
+    let track: Track
 }
 
 
 struct Track: Codable {
-    let track_id: String
+    let track_id: Int
     let track_name: String
     let track_rating: Int
     let has_lyrics: Int
@@ -50,29 +57,49 @@ struct Track: Codable {
     let artist_name: String
     
     //TODO: make computed property to get lyrics
-    var url: String {
+    var url: String? {
         return String(album_id)
     }
     
 }
 
-/*[
- {
- "track": {
- "track_id": 85078352,
- "track_name": "Sorry (Acoustic)",
- "track_name_translation_list": [],
- "track_rating": 5,
- "commontrack_id": 47918723,
- "instrumental": 1,
- "explicit": 0,
- "has_lyrics": 0,
- "has_subtitles": 0,
- "has_richsync": 0,
- "num_favourite": 5,
- "album_id": 20950721,
- "album_name": "Sorry (Acoustic)",
- "artist_id": 28719754,
- "artist_name": "J. Cordova",
- "track_share_url": "https://www.musixmatch.com/lyrics/J-Cordova/Sorry-Acoustic?utm_source=application&utm_campaign=api&utm_medium=Pursuit%3A1409618580260",
- "track_edit_url": "https://www.musixmatch.com/lyrics/J-Cordova/Sorry-Acoustic/edit?utm_source=application&utm_campaign=api&utm_medium=Pursuit%3A1409618580260",*/
+/*struct Music: Codable{
+ let message: Message
+ static func getMusic(userInput: String?,completionHandler: @escaping (Result<[TrackList],AppError>) -> () ) {
+ var url = "http://api.musixmatch.com/ws/1.1/track.search?q_artist=kanye&page_size=100&page=1&s_track_rating=desc&apikey=3445509192b50cd7ccfe4df777f38cb2"
+ if let word = userInput{
+ let newString = word.replacingOccurrences(of: " ", with: "-")
+ url = "http://api.musixmatch.com/ws/1.1/track.search?q_artist=\(newString)&page_size=100&page=1&s_track_rating=desc&apikey=3445509192b50cd7ccfe4df777f38cb2"
+ 
+ }
+ NetWorkManager.shared.fetchData(urlString: url) { (result) in
+ print(url)
+ switch result {
+ case .failure(let error):
+ completionHandler(.failure(error))
+ case .success(let data):
+ do {
+ let decodedShow = try JSONDecoder().decode(Music.self, from: data)
+ completionHandler(.success(decodedShow.message.body.track_list))
+ } catch {
+ completionHandler(.failure(.badJSONError))
+ print(error)
+ }
+ }
+ }
+ }
+ }
+ struct Message: Codable{
+ let body: Body
+ }
+ struct Body: Codable{
+ let track_list: [TrackList]
+ }
+ struct TrackList: Codable{
+ let track: Track
+ }
+ struct Track: Codable{
+ let track_id: Int
+ let track_name: String
+ let artist_name: String
+ }*/

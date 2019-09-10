@@ -52,16 +52,16 @@ struct SearchAPIClient {
     private init() {}
     static let shared = SearchAPIClient()
     
-    static func getResults(searchTerm: String , completionHandler: @escaping (Result<[SearchResult],AppError>) -> () ) {
-        let url = "http://api.tvmaze.com/search/shows?q=\(searchTerm.lowercased())"
+    static func getResults(searchTerm: String , completionHandler: @escaping (Result<[TrackList],AppError>) -> () ) {
+        let url = "http://api.musixmatch.com/ws/1.1/track.search?page_size=100&page=1&s_track_rating=desc&q_artist=\(searchTerm.lowercased())&apikey=50aa0a8f45e0ba5082bb0226cf8d5f6e"
         NetworkManager.shared.fetchData(urlString: url) { (result) in
             switch result {
             case .failure(let error):
                 completionHandler(.failure(error))
             case .success(let data):
                 do {
-                    let decoded = try JSONDecoder().decode([SearchResult].self, from: data)
-                    completionHandler(.success(decoded))
+                    let decoded = try JSONDecoder().decode(TrackWrapper.self, from: data)
+                    completionHandler(.success((decoded.message.body.track_list)))
                     
                 } catch {
                     completionHandler(.failure(.badJSONError))
@@ -73,28 +73,3 @@ struct SearchAPIClient {
 
 }
 
-
-struct EpisodeAPIClient {
-    private init() {}
-    static let shared = EpisodeAPIClient()
-    
-    static func getEpisodes(searchTerm: String , completionHandler: @escaping (Result<[Episode],AppError>) -> () ) {
-        let url = "http://api.tvmaze.com/search/shows?q=\(searchTerm.lowercased())"
-        NetworkManager.shared.fetchData(urlString: url) { (result) in
-            switch result {
-            case .failure(let error):
-                completionHandler(.failure(error))
-            case .success(let data):
-                do {
-                    let decoded = try JSONDecoder().decode([Episode].self, from: data)
-                    completionHandler(.success(decoded))
-                    
-                } catch {
-                    completionHandler(.failure(.badJSONError))
-                    print(error)
-                }
-            }
-        }
-    }
-    
-}
