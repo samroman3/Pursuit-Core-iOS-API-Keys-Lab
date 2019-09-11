@@ -10,7 +10,7 @@ import Foundation
 struct Lyrics: Codable {
     let message: MessageWrapper
     
-    static func loadLyrics(trackID: Int, completionHandler: @escaping (Result<Lyrics,AppError>) -> () ) {
+    static func loadLyrics(trackID: Int, completionHandler: @escaping (Result<LyricWrapper,AppError>) -> () ) {
         let searchID = String(trackID)
         let url = "http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=\(searchID)&apikey=50aa0a8f45e0ba5082bb0226cf8d5f6e"
         NetworkManager.shared.fetchData(urlString: url) { (result) in
@@ -21,7 +21,7 @@ struct Lyrics: Codable {
             case .success(let data):
                 do {
                     let decode = try JSONDecoder().decode(Lyrics.self, from: data)
-                    completionHandler(.success((decode)))
+                    completionHandler(.success((decode.message.body.lyrics)))
                 } catch {
                     completionHandler(.failure(.badJSONError))
                 }
@@ -42,7 +42,7 @@ struct BodyWrapper: Codable {
 }
 
 struct LyricWrapper: Codable {
-    let lyrics_body: String
+    let lyrics_body: String?
 }
 
 

@@ -19,29 +19,42 @@ class LyricsDetailViewController: UIViewController,UITextFieldDelegate {
     
     var endPoint: Track? {
         didSet {
-            let id = endPoint?.track_id
-            Lyrics.loadLyrics(trackID: id ?? 0) { (result) in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .failure(let error):
-                        print(error)
-                    case .success(let lyrics):
-                        self.lyricTextField.text = lyrics.message.body.lyrics.lyrics_body
-                        self.artistLabel.text = self.endPoint?.artist_name ?? ""
-                        self.songLabel.text = self.endPoint?.track_name ?? ""
+            DispatchQueue.main.async {
+            self.artistLabel.text = self.endPoint?.artist_name ?? ""
+            self.songLabel.text = self.endPoint?.track_name ?? ""
+    }
+        }
+    }
+    var lyrics: LyricWrapper? {
+        didSet {
+        if lyrics?.lyrics_body != ""  {
+        lyricTextField.text = lyrics?.lyrics_body
+        } else {
+            lyricTextField.text = "..Lyrics Unavailable.."
+            }
+    }
+    }
+    
+    func loadData(idnum: Int?){
+        if let id = idnum{
+            Lyrics.loadLyrics(trackID: id){ (result) in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let data):
+                    DispatchQueue.main.async{
+                        return self.lyrics = data.self
                     }
-                
                 }
             }
-            
         }
+        
     }
     
     
     
-    
-    
     override func viewDidLoad() {
+        loadData(idnum: endPoint?.track_id)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
